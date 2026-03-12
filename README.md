@@ -10,6 +10,8 @@ So, you cannot run code specific to just one test before the test.
 
 To solve this problem, I have created custom xUnit attributes.
 
+These attributes allow you to **run specific code asynchronously before a specific test or group of tests**.
+
 There is an interface your specific Test has to implement.
 
 ```csharp
@@ -20,6 +22,8 @@ public interface IRunBeforeTest
 ```
 
 In the interface implementation, specific to each test, put your code specific to the Test in the Run Action, as shown below.
+
+The code in the Run Action will run asynchronously before the test or group of tests decorated with the custom attribute.
 
 ```csharp
 public class LoadAIModel : IRunBeforeTest
