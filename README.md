@@ -1,6 +1,6 @@
 # xUnit Addons
 
-xUnit allows you to run code before each test using the BeforeAfterTestAttribute.
+xUnit allows you to run code before each test using the `BeforeAfterTestAttribute`.
 
 But, you cannot run `asynchronous code` which is needed in many situations.
 
