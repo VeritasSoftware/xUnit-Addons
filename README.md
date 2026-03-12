@@ -47,9 +47,9 @@ public class SetAIModelPath : IRunBeforeTest
 }
 ```
 
-Then, you can decorate those specific tests.
+Then, you can decorate those specific tests with the `MyFact` & `MyTheory` attributes.
 
-Provide a Guid (as a string) as a parameter. This Guid should be unique to the test.
+Provide a Guid (as a string) as a parameter. This Guid must be unique to the test.
 
 ```csharp
 [MyTheory(typeof(LoadAIModel), "5bb02c70-01d1-4987-8a6e-ab7fc8b1dcc4")]
