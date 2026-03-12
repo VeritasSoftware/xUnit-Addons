@@ -2,9 +2,11 @@
 
 xUnit allows you to run code before each test using the `BeforeAfterTestAttribute`.
 
-But, you cannot run `asynchronous code` which is needed in many situations.
+But, you cannot run `asynchronous code` using this attribute. This is needed in many situations.
 
-To solve this problem, I have created a custom abstract xUnit attribute `BeforeAsyncAfterSyncTestAttribute`.
+To solve this problem, I have created a custom abstract xUnit attribute `BeforeAsyncAfterSyncTestAttribute`,
+
+inheriting from `BeforeAfterTestAttribute`, that allows you to run asynchronous code before each test or group of tests.
 
 First, inherit from this attribute and create a class for each test.
 
@@ -17,7 +19,7 @@ public class LoadModelBeforeTestAttribute : BeforeAsyncAfterSyncTestAttribute
 
     public override void After (MethodInfo methodUnderTest)
     {
-        // Clean up resources after the test, if necessary
+        // This method runs synchronously after the test. You can use it to clean up resources after the test, if necessary.
     }
 }
 
@@ -29,7 +31,7 @@ public class SetModelPathBeforeTestAttribute : BeforeAsyncAfterSyncTestAttribute
 
     public override void After(MethodInfo methodUnderTest)
     {
-        // Clean up resources after the test, if necessary
+        // This method runs synchronously after the test. You can use it to clean up resources after the test, if necessary.
     }
 }
 
