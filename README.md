@@ -48,8 +48,6 @@ In the interface implementation, specific to each test, put your code specific t
 
 The code in the Run Action will run asynchronously before the test or group of tests decorated with the custom attribute.
 
-Here you put your asynchronous code.
-
 ```csharp
 public class LoadAIModel : IRunBeforeTest
 {
