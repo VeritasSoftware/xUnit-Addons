@@ -1,16 +1,39 @@
 # xUnit Addons
 
-xUnit allows you to run code before all tests.
+xUnit allows you to run code before each test using the BeforeAfterTestAttribute.
 
-Just put the code in the constructor of your test class.
+But, you cannot run `asynchronous code` which is needed in many situations.
 
-When you run all the tests, the same code will run before each test.
+To solve this problem, I have created a custom abstract xUnit attribute `BeforeAsyncAfterSyncTestAttribute`.
 
-So, you cannot run code specific to just one test before the test.
+First, inherit from this attribute and create a class for each test.
 
-To solve this problem, I have created custom xUnit attributes.
+```csharp
+public class LoadModelBeforeTestAttribute : BeforeAsyncAfterSyncTestAttribute
+{
+    public LoadModelBeforeTestAttribute(Type specificAttributeType, string stamp) : base(specificAttributeType, stamp)
+    {
+    }
 
-These attributes allow you to **run specific code asynchronously before a specific test or group of tests**.
+    public override void After (MethodInfo methodUnderTest)
+    {
+        // Clean up resources after the test, if necessary
+    }
+}
+
+public class SetModelPathBeforeTestAttribute : BeforeAsyncAfterSyncTestAttribute
+{
+    public SetModelPathBeforeTestAttribute(Type specificAttributeType, string stamp) : base(specificAttributeType, stamp)
+    {
+    }
+
+    public override void After(MethodInfo methodUnderTest)
+    {
+        // Clean up resources after the test, if necessary
+    }
+}
+
+```
 
 There is an interface your specific Test has to implement.
 
@@ -24,6 +47,8 @@ public interface IRunBeforeTest
 In the interface implementation, specific to each test, put your code specific to the Test in the Run Action, as shown below.
 
 The code in the Run Action will run asynchronously before the test or group of tests decorated with the custom attribute.
+
+Here you put your asynchronous code.
 
 ```csharp
 public class LoadAIModel : IRunBeforeTest
@@ -51,12 +76,13 @@ public class SetAIModelPath : IRunBeforeTest
 }
 ```
 
-Then, you can decorate those specific tests with the `MyFact` & `MyTheory` attributes.
+Then, you can decorate those specific tests with the inherited attributes.
 
 Provide a Guid (as a string) as a parameter. This Guid must be unique to the test.
 
 ```csharp
-[MyTheory(typeof(LoadAIModel), "5bb02c70-01d1-4987-8a6e-ab7fc8b1dcc4")]
+[LoadModelBeforeTest(typeof(LoadAIModel), "5bb02c70-01d1-4987-8a6e-ab7fc8b1dcc4")]
+[Theory]
 [InlineData("What are the requisites for carbon credits?", Scheme.ACCU)]
 [InlineData("How do I calculate net emissions?", Scheme.SafeguardMechanism)]
 [InlineData("What is the colour of a rose?", Scheme.None)]
@@ -72,15 +98,15 @@ public async Task Load_Predict(string userInput, Scheme expectedResult)
     Assert.Equal(expectedResult, (Scheme)prediction.PredictedLabel);
 }
 
-
-[MyTheory(typeof(SetAIModelPath), "d54e2920-ad42-4acc-a6e2-37aad8e9ac3f")]
+[SetModelPathBeforeTest(typeof(SetAIModelPath), "d54e2920-ad42-4acc-a6e2-37aad8e9ac3f")]
+[Theory]
 [InlineData("What are the requisites for carbon credits?", Scheme.ACCU)]
 [InlineData("How do I calculate net emissions?", Scheme.SafeguardMechanism)]
 [InlineData("What is the colour of a rose?", Scheme.None)]
 public async Task AutoLoad_Predict(string userInput, Scheme expectedResult)
 {
     var input = new ModelInput { Feature = userInput };
-
+           
     // Act
     var prediction = await PredictionEngine.PredictAsync(input);
 
@@ -94,4 +120,4 @@ Run all the tests in the class.
 
 Your specific code will run **ONLY ONCE** before each group of Theory Tests.
 
-So, for example, your specific code in `LoadAIModel` will run only once before the 3 Tests in the Theory group.
+So, for example, your specific code in `LoadAIModel` will run asynchronously only once before the 3 Tests in the Theory group.
