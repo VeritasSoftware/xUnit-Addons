@@ -47,7 +47,7 @@ public class BuildLoadPredictDIContainerAttribute : BeforeAsyncAfterSyncTestAttr
 
     public override void After(MethodInfo methodUnderTest)
     {
-        // Clean up resources after the test, if necessary
+        // This method runs synchronously after the test. You can use it to clean up resources after the test, if necessary.
     }
 }
 
@@ -61,7 +61,7 @@ public class BuildCreateModelDIContainerAttribute : BeforeAsyncAfterSyncTestAttr
 
     public override void After(MethodInfo methodUnderTest)
     {
-        // Clean up resources after the test, if necessary
+        // This method runs synchronously after the test. You can use it to clean up resources after the test, if necessary.
     }
 }
 
