@@ -4,49 +4,67 @@ using Xunit.Sdk;
 
 namespace xUnitAddons
 {
-    public interface IRunBeforeTest
+    public interface IRunAsync
     {
-        Action Run { get; }
     }
 
-    public interface IRunBeforeTestReturn : IRunBeforeTest
+    public interface IRunBeforeAsync : IRunAsync
+    {
+        Action? RunBefore { get; }
+    }
+
+    public interface IRunAfterAsync : IRunAsync
+    {
+        Action? RunAfter { get; }
+    }
+
+    public interface IRunBeforeAsyncWithReturn : IRunBeforeAsync
     {
         object? ReturnValue { get; set; }
     }
 
-    public abstract class BeforeAsyncAfterSyncTestAttribute : BeforeAfterTestAttribute
+    public abstract class BeforeAfterAsyncTestAttribute : BeforeAfterTestAttribute
     {
         private static string? _lastTestStamp = null;
         private static Type? _lastType = null;
 
-        public BeforeAsyncAfterSyncTestAttribute(Type specificAttributeType, string stamp) : base()
+        public BeforeAfterAsyncTestAttribute(Type specificAttributeType, string stamp) : base()
         {
-            if (!typeof(IRunBeforeTest).IsAssignableFrom(specificAttributeType))
-                throw new ArgumentException($"{specificAttributeType.Name} must implement ITestCondition");
+            var specificAttributeBefore = Helpers.CreateInstance<IRunBeforeAsync>(specificAttributeType);
 
-            var specificAttribute = (IRunBeforeTest)Activator.CreateInstance(specificAttributeType)!;
-
-            if (specificAttribute != null && specificAttribute.Run != null && (string.IsNullOrEmpty(_lastTestStamp)
+            if (specificAttributeBefore != null && specificAttributeBefore.RunBefore != null && (string.IsNullOrEmpty(_lastTestStamp)
                         || ((specificAttributeType != _lastType) && (Guid.Parse(stamp) != Guid.Parse(_lastTestStamp)))))
             {
-                specificAttribute.Run();
+                var specificAttributeAfter = Helpers.CreateInstance<IRunAfterAsync>(specificAttributeType);
+
+                if (specificAttributeAfter != null && specificAttributeAfter.RunAfter != null)
+                {
+                    specificAttributeAfter.RunAfter();
+                }
+
+                specificAttributeBefore.RunBefore();
 
                 _lastTestStamp = stamp;
                 _lastType = specificAttributeType;
             }
         }
 
-        public BeforeAsyncAfterSyncTestAttribute(Type specificAttributeType, Type returnFunctionClassType, string returnFunctionName, string stamp) : base()
+        public BeforeAfterAsyncTestAttribute(Type specificAttributeType, Type returnFunctionClassType, string returnFunctionName, string stamp) : base()
         {
-            if (!typeof(IRunBeforeTest).IsAssignableFrom(specificAttributeType))
-                throw new ArgumentException($"{specificAttributeType.Name} must implement ITestCondition");
+            var specificAttributeBefore = Helpers.CreateInstance<IRunBeforeAsyncWithReturn>(specificAttributeType);
 
-            var specificAttribute = (IRunBeforeTestReturn)Activator.CreateInstance(specificAttributeType)!;
-
-            if (specificAttribute != null && specificAttribute.Run != null && (string.IsNullOrEmpty(_lastTestStamp)
+            if (specificAttributeBefore != null && specificAttributeBefore.RunBefore != null && (string.IsNullOrEmpty(_lastTestStamp)
                         || ((specificAttributeType != _lastType) && (Guid.Parse(stamp) != Guid.Parse(_lastTestStamp)))))
             {
-                specificAttribute.Run();
+
+                var specificAttributeAfter = Helpers.CreateInstance<IRunAfterAsync>(specificAttributeType);
+
+                if (specificAttributeAfter != null && specificAttributeAfter.RunAfter != null)
+                {
+                    specificAttributeAfter.RunAfter();
+                }
+
+                specificAttributeBefore.RunBefore();
 
                 _lastTestStamp = stamp;
                 _lastType = specificAttributeType;
@@ -57,7 +75,7 @@ namespace xUnitAddons
 
                 if (returnStaticMethod != null)
                 {
-                    returnStaticMethod.Invoke(null, new object[] { specificAttribute.ReturnValue! });
+                    returnStaticMethod.Invoke(null, new object[] { specificAttributeBefore.ReturnValue! });
                 }
             }
         }
