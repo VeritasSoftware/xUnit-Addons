@@ -115,7 +115,7 @@ public class LoadAIModel : IRunBeforeAsync, IRunAfterAsync
     public Action RunAfter => async () =>
     {
         // Clean up resources after the test, if necessary
-            await PredictionEngine.UnloadModelAsync();
+        await PredictionEngine.UnloadModelAsync();
     };
 }
 
