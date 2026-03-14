@@ -371,8 +371,6 @@ public class WebsiteAIAssistantTests
         // Arrange                      
         var aiAssistantService = _aiAssistantServiceProvider!.GetRequiredService<IWebsiteAIAssistantService>();
 
-        await aiAssistantService.LoadModelAsync();
-
         var input = new ModelInput { Feature = userInput };
 
         // Act
