@@ -14,16 +14,13 @@ First, inherit from this attribute and create an attribute for each test.
 You can re-use the attribute in multiples tests too. Just pass in a different Guid in the `stamp` parameter.
 
 ```csharp
-public class LoadModelBeforeTestAttribute : BeforeAfterAsyncTestAttribute
+public class MyBeforeAfterAsyncTestAttribute : BeforeAfterAsyncTestAttribute
 {
-    public LoadModelBeforeTestAttribute(Type specificAttributeType, string stamp) : base(specificAttributeType, stamp)
+    public MyBeforeAfterAsyncTestAttribute(Type specificAttributeType, string stamp) : base(specificAttributeType, stamp)
     {
     }
-}
 
-public class BuildLoadPredictDIContainerAttribute : BeforeAfterAsyncTestAttribute
-{
-    public BuildLoadPredictDIContainerAttribute(Type specificAttribute, Type returnFunctionClassType,
+    public MyBeforeAfterAsyncTestAttribute(Type specificAttribute, Type returnFunctionClassType,
                                                 string returnFunctionName, string stamp)
                                                 : base(specificAttribute, returnFunctionClassType, returnFunctionName, stamp)
     {
@@ -143,7 +140,7 @@ When you want to return a value from your pre-test method, create a static metho
     {
         private static IServiceProvider? _aiAssistantServiceProvider;
 
-        [LoadModelBeforeTest(typeof(LoadAIModel), "5bb02c70-01d1-4987-8a6e-ab7fc8b1dcc4")]
+        [MyBeforeAfterAsyncTest(typeof(LoadAIModel), "5bb02c70-01d1-4987-8a6e-ab7fc8b1dcc4")]
         [Theory]
         [InlineData("What are the requisites for carbon credits?", Scheme.ACCU)]
         [InlineData("How do I calculate net emissions?", Scheme.SafeguardMechanism)]
@@ -160,7 +157,7 @@ When you want to return a value from your pre-test method, create a static metho
             Assert.Equal(expectedResult, (Scheme)prediction.PredictedLabel);
         }
 
-        [LoadModelBeforeTest(typeof(SetAIModelPath), "d54e2920-ad42-4acc-a6e2-37aad8e9ac3f")]
+        [MyBeforeAfterAsyncTest(typeof(SetAIModelPath), "d54e2920-ad42-4acc-a6e2-37aad8e9ac3f")]
         [Theory]
         [InlineData("What are the requisites for carbon credits?", Scheme.ACCU)]
         [InlineData("How do I calculate net emissions?", Scheme.SafeguardMechanism)]
@@ -177,7 +174,7 @@ When you want to return a value from your pre-test method, create a static metho
             Assert.Equal(expectedResult, (Scheme)prediction.PredictedLabel);
         }
 
-        [BuildLoadPredictDIContainer(typeof(BuildLoadPredictContainer), typeof(WebsiteAIAssistantTests),
+        [MyBeforeAfterAsyncTest(typeof(BuildLoadPredictContainer), typeof(WebsiteAIAssistantTests),
                                     $"{nameof(BuildLoadPredictDIContainerReturn)}", "5bb02c70-01d1-4987-8a6e-ab7fc8b1dcc4")]
         [Theory]
         [InlineData("What are the requisites for carbon credits?", Scheme.ACCU)]

@@ -8,7 +8,7 @@ namespace xUnitAddonsTests
     {
         private static IServiceProvider? _aiAssistantServiceProvider;
 
-        [LoadModelBeforeTest(typeof(LoadAIModel), "5bb02c70-01d1-4987-8a6e-ab7fc8b1dcc4")]
+        [MyBeforeAfterAsyncTest(typeof(LoadAIModel), "5bb02c70-01d1-4987-8a6e-ab7fc8b1dcc4")]
         [Theory]
         [InlineData("What are the requisites for carbon credits?", Scheme.ACCU)]
         [InlineData("How do I calculate net emissions?", Scheme.SafeguardMechanism)]
@@ -25,7 +25,7 @@ namespace xUnitAddonsTests
             Assert.Equal(expectedResult, (Scheme)prediction.PredictedLabel);
         }
 
-        [LoadModelBeforeTest(typeof(SetAIModelPath), "d54e2920-ad42-4acc-a6e2-37aad8e9ac3f")]
+        [MyBeforeAfterAsyncTest(typeof(SetAIModelPath), "d54e2920-ad42-4acc-a6e2-37aad8e9ac3f")]
         [Theory]
         [InlineData("What are the requisites for carbon credits?", Scheme.ACCU)]
         [InlineData("How do I calculate net emissions?", Scheme.SafeguardMechanism)]
@@ -42,7 +42,7 @@ namespace xUnitAddonsTests
             Assert.Equal(expectedResult, (Scheme)prediction.PredictedLabel);
         }
 
-        [LoadModelBeforeTest(typeof(LoadAIListModel), "1761b894-e972-4c2f-ab01-1c07b4867bd1")]
+        [MyBeforeAfterAsyncTest(typeof(LoadAIListModel), "1761b894-e972-4c2f-ab01-1c07b4867bd1")]
         [Theory]
         [InlineData("What are the requisites for carbon credits?", Scheme.ACCU)]
         [InlineData("How do I calculate net emissions?", Scheme.SafeguardMechanism)]
@@ -59,7 +59,7 @@ namespace xUnitAddonsTests
             Assert.Equal(expectedResult, (Scheme)prediction.PredictedLabel);
         }
 
-        [BuildLoadPredictDIContainer(typeof(BuildLoadPredictContainer), typeof(WebsiteAIAssistantTests),
+        [MyBeforeAfterAsyncTest(typeof(BuildLoadPredictContainer), typeof(WebsiteAIAssistantTests),
                                     $"{nameof(BuildLoadPredictDIContainerReturn)}", "5bb02c70-01d1-4987-8a6e-ab7fc8b1dcc4")]
         [Theory]
         [InlineData("What are the requisites for carbon credits?", Scheme.ACCU)]
@@ -80,7 +80,7 @@ namespace xUnitAddonsTests
             Assert.Equal(expectedResult, (Scheme)prediction.PredictedLabel);
         }
 
-        [BuildLoadPredictDIContainer(typeof(BuildLoadPredictContainer), typeof(WebsiteAIAssistantTests),
+        [MyBeforeAfterAsyncTest(typeof(BuildLoadPredictContainer), typeof(WebsiteAIAssistantTests),
                                     $"{nameof(BuildLoadPredictDIContainerReturn)}", "ec94f239-86b9-4563-8b1d-2e85c65fb9d2")]
         [Theory]
         [InlineData("What are the requisites for carbon credits?", Scheme.ACCU)]
