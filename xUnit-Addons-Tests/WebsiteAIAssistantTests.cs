@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using WebsiteAIAssistant;
-using xUnitAddons;
 using xUnitAddonsTests.Helpers;
 
 namespace xUnitAddonsTests
@@ -16,6 +15,27 @@ namespace xUnitAddonsTests
         [InlineData("What is the colour of a rose?", Scheme.None)]
         public async Task Load_Predict(string userInput, Scheme expectedResult)
         {
+            string modelPath = Path.Combine(Environment.CurrentDirectory, "SampleWebsite-AI-Model.zip");
+
+            await PredictionEngine.LoadModelAsync(modelPath);
+
+            var input = new ModelInput { Feature = userInput };
+
+            // Act
+            var prediction = await PredictionEngine.PredictAsync(input);
+
+            // Assert
+            Assert.NotNull(prediction);
+            Assert.Equal(expectedResult, (Scheme)prediction.PredictedLabel);
+        }
+
+        [MyBeforeAfterAsyncTest(typeof(LoadAIModel), "67721fe6-cb27-4a6e-9f67-324291367706")]
+        [Fact]
+        public async Task Load_Predict_Fail()
+        {
+            var userInput = "What is the colour of a rose?";
+            var expectedResult = Scheme.None;
+
             string modelPath = Path.Combine(Environment.CurrentDirectory, "SampleWebsite-AI-Model.zip");
 
             await PredictionEngine.LoadModelAsync(modelPath);
