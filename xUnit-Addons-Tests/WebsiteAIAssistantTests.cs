@@ -25,7 +25,7 @@ namespace xUnitAddonsTests
             Assert.Equal(expectedResult, (Scheme)prediction.PredictedLabel);
         }
 
-        [SetModelPathBeforeTest(typeof(SetAIModelPath), "d54e2920-ad42-4acc-a6e2-37aad8e9ac3f")]
+        [LoadModelBeforeTest(typeof(SetAIModelPath), "d54e2920-ad42-4acc-a6e2-37aad8e9ac3f")]
         [Theory]
         [InlineData("What are the requisites for carbon credits?", Scheme.ACCU)]
         [InlineData("How do I calculate net emissions?", Scheme.SafeguardMechanism)]

@@ -15,18 +15,6 @@ namespace xUnitAddonsTests.Helpers
         }
     }
 
-    public class SetModelPathBeforeTestAttribute : BeforeAfterAsyncTestAttribute
-    {
-        public SetModelPathBeforeTestAttribute(Type specificAttributeType, string stamp) : base(specificAttributeType, stamp)
-        {
-        }
-
-        public override void After(MethodInfo methodUnderTest)
-        {
-            // Clean up resources after the test, if necessary
-        }
-    }
-
     public class BuildLoadPredictDIContainerAttribute : BeforeAfterAsyncTestAttribute
     {
         public BuildLoadPredictDIContainerAttribute(Type specificAttribute, Type returnFunctionClassType,

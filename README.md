@@ -26,18 +26,6 @@ public class LoadModelBeforeTestAttribute : BeforeAfterAsyncTestAttribute
     }
 }
 
-public class SetModelPathBeforeTestAttribute : BeforeAfterAsyncTestAttribute
-{
-    public SetModelPathBeforeTestAttribute(Type specificAttributeType, string stamp) : base(specificAttributeType, stamp)
-    {
-    }
-
-    public override void After(MethodInfo methodUnderTest)
-    {
-        // Clean up resources after the test, if necessary
-    }
-}
-
 public class BuildLoadPredictDIContainerAttribute : BeforeAfterAsyncTestAttribute
 {
     public BuildLoadPredictDIContainerAttribute(Type specificAttribute, Type returnFunctionClassType,
@@ -94,24 +82,6 @@ public class LoadAIModel : IRunBeforeAsync, IRunAfterAsync
         // Arrange
         // Path to load model
         string modelPath = Path.Combine(Environment.CurrentDirectory, "SampleWebsite-AI-Model.zip");
-
-        await PredictionEngine.LoadModelAsync(modelPath);
-    };
-
-    public Action RunAfter => async () =>
-    {
-        // Clean up resources after the test, if necessary
-        await PredictionEngine.UnloadModelAsync();
-    };
-}
-
-public class LoadAIListModel : IRunBeforeAsync, IRunAfterAsync
-{
-    public Action RunBefore => async () =>
-    {
-        // Arrange
-        // Path to load model
-        string modelPath = Path.Combine(Environment.CurrentDirectory, "SampleWebsite-AI-Model-CreateModel-List.zip");
 
         await PredictionEngine.LoadModelAsync(modelPath);
     };
@@ -200,29 +170,12 @@ When you want to return a value from your pre-test method, create a static metho
             Assert.Equal(expectedResult, (Scheme)prediction.PredictedLabel);
         }
 
-        [SetModelPathBeforeTest(typeof(SetAIModelPath), "d54e2920-ad42-4acc-a6e2-37aad8e9ac3f")]
+        [LoadModelBeforeTest(typeof(SetAIModelPath), "d54e2920-ad42-4acc-a6e2-37aad8e9ac3f")]
         [Theory]
         [InlineData("What are the requisites for carbon credits?", Scheme.ACCU)]
         [InlineData("How do I calculate net emissions?", Scheme.SafeguardMechanism)]
         [InlineData("What is the colour of a rose?", Scheme.None)]
         public async Task AutoLoad_Predict(string userInput, Scheme expectedResult)
-        {
-            var input = new ModelInput { Feature = userInput };
-
-            // Act
-            var prediction = await PredictionEngine.PredictAsync(input);
-
-            // Assert
-            Assert.NotNull(prediction);
-            Assert.Equal(expectedResult, (Scheme)prediction.PredictedLabel);
-        }
-
-        [LoadModelBeforeTest(typeof(LoadAIListModel), "1761b894-e972-4c2f-ab01-1c07b4867bd1")]
-        [Theory]
-        [InlineData("What are the requisites for carbon credits?", Scheme.ACCU)]
-        [InlineData("How do I calculate net emissions?", Scheme.SafeguardMechanism)]
-        [InlineData("What is the colour of a rose?", Scheme.None)]
-        public async Task Load_Predict_List(string userInput, Scheme expectedResult)
         {
             var input = new ModelInput { Feature = userInput };
 
@@ -241,27 +194,6 @@ When you want to return a value from your pre-test method, create a static metho
         [InlineData("How do I calculate net emissions?", Scheme.SafeguardMechanism)]
         [InlineData("What is the colour of a rose?", Scheme.None)]
         public async Task Load_Predict_Service(string userInput, Scheme expectedResult)
-        {
-            // Arrange                      
-            var aiAssistantService = _aiAssistantServiceProvider!.GetRequiredService<IWebsiteAIAssistantService>();
-
-            var input = new ModelInput { Feature = userInput };
-
-            // Act
-            var prediction = await aiAssistantService.PredictAsync(input);
-
-            // Assert
-            Assert.NotNull(prediction);
-            Assert.Equal(expectedResult, (Scheme)prediction.PredictedLabel);
-        }
-
-        [BuildLoadPredictDIContainer(typeof(BuildLoadPredictContainer), typeof(WebsiteAIAssistantTests),
-                                    $"{nameof(BuildLoadPredictDIContainerReturn)}", "ec94f239-86b9-4563-8b1d-2e85c65fb9d2")]
-        [Theory]
-        [InlineData("What are the requisites for carbon credits?", Scheme.ACCU)]
-        [InlineData("How do I calculate net emissions?", Scheme.SafeguardMechanism)]
-        [InlineData("What is the colour of a rose?", Scheme.None)]
-        public async Task AutoLoad_Predict_Service(string userInput, Scheme expectedResult)
         {
             // Arrange                      
             var aiAssistantService = _aiAssistantServiceProvider!.GetRequiredService<IWebsiteAIAssistantService>();
