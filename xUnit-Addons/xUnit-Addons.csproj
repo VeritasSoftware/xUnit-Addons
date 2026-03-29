@@ -2,10 +2,34 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>xUnit_Addons</RootNamespace>
+    <RootNamespace>xUnitAddons</RootNamespace>
 	  <LangVersion>10.0</LangVersion>
 	  <Nullable>enable</Nullable>
+	  <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+	  <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
+	  <Description>xUnit addon to run asynchronous code specific to test, before/after test.</Description>
+	  <PackageProjectUrl>https://github.com/VeritasSoftware/WebsiteAIAssistant</PackageProjectUrl>
+	  <RepositoryUrl>https://github.com/VeritasSoftware/WebsiteAIAssistant</RepositoryUrl>
+	  <PackageTags></PackageTags>
+	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	  <IsPackable>true</IsPackable>
+	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
+	  <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+	  <Authors>Shantanu</Authors>
+	  <Company>Veritas Software</Company>
+	  <Version>1.0.0</Version>
+	  <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
+	  <Title>xUnit-Addons</Title>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+	<ItemGroup>
+		<Content Include="README.md">
+			<PackagePath>\</PackagePath>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Pack>True</Pack>
+		</Content>
+	</ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="xunit.extensibility.core" Version="2.9.3" />
