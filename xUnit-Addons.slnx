@@ -2,5 +2,6 @@
   <Folder Name="/Solution Items/">
     <File Path="README.md" />
   </Folder>
+  <Project Path="xUnit-Addons-Tests/xUnit-Addons-Tests.csproj" Id="825dc62d-1834-424f-a9e6-a83cedbafb79" />
   <Project Path="xUnit-Addons/xUnit-Addons.csproj" />
 </Solution>
