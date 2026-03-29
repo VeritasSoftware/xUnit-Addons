@@ -28,20 +28,20 @@ namespace xUnitAddons
         private static string? _lastTestStamp = null;
         private static Type? _lastType = null;
 
-        public BeforeAfterAsyncTestAttribute(Type specificAttributeType, string stamp) : base()
-        {
+        private static Type? _specificAttributeType;
+        private static int _noOfTests = 1;
+        private static int _currentTestCount = 0;
+
+        public BeforeAfterAsyncTestAttribute(Type specificAttributeType, string stamp, int noOfTests = 1) : base()
+        {            
+            _specificAttributeType = specificAttributeType;
+            _noOfTests = noOfTests;
+
             var specificAttributeBefore = Helpers.CreateInstance<IRunBeforeAsync>(specificAttributeType);
 
             if (specificAttributeBefore != null && specificAttributeBefore.RunBefore != null && (string.IsNullOrEmpty(_lastTestStamp)
                         || ((specificAttributeType != _lastType) && (Guid.Parse(stamp) != Guid.Parse(_lastTestStamp)))))
             {
-                var specificAttributeAfter = Helpers.CreateInstance<IRunAfterAsync>(specificAttributeType);
-
-                if (specificAttributeAfter != null && specificAttributeAfter.RunAfter != null)
-                {
-                    specificAttributeAfter.RunAfter();
-                }
-
                 specificAttributeBefore.RunBefore();
 
                 _lastTestStamp = stamp;
@@ -49,21 +49,16 @@ namespace xUnitAddons
             }
         }
 
-        public BeforeAfterAsyncTestAttribute(Type specificAttributeType, Type returnFunctionClassType, string returnFunctionName, string stamp) : base()
+        public BeforeAfterAsyncTestAttribute(Type specificAttributeType, Type returnFunctionClassType, string returnFunctionName, string stamp, int noOfTests = 1) : base()
         {
+            _specificAttributeType = specificAttributeType;
+            _noOfTests = noOfTests;
+
             var specificAttributeBefore = Helpers.CreateInstance<IRunBeforeAsyncWithReturn>(specificAttributeType);
 
             if (specificAttributeBefore != null && specificAttributeBefore.RunBefore != null && (string.IsNullOrEmpty(_lastTestStamp)
                         || ((specificAttributeType != _lastType) && (Guid.Parse(stamp) != Guid.Parse(_lastTestStamp)))))
             {
-
-                var specificAttributeAfter = Helpers.CreateInstance<IRunAfterAsync>(specificAttributeType);
-
-                if (specificAttributeAfter != null && specificAttributeAfter.RunAfter != null)
-                {
-                    specificAttributeAfter.RunAfter();
-                }
-
                 specificAttributeBefore.RunBefore();
 
                 _lastTestStamp = stamp;
@@ -78,6 +73,26 @@ namespace xUnitAddons
                     returnStaticMethod.Invoke(null, new object[] { specificAttributeBefore.ReturnValue! });
                 }
             }
+        }
+
+        public override void After(MethodInfo methodUnderTest)
+        {
+            _currentTestCount++;
+
+            if (_specificAttributeType == null || _currentTestCount < _noOfTests)
+            {
+                base.After(methodUnderTest);
+                return;
+            }
+
+            var specificAttributeAfter = Helpers.CreateInstance<IRunAfterAsync>(_specificAttributeType);
+
+            if (specificAttributeAfter != null && specificAttributeAfter.RunAfter != null)
+            {
+                specificAttributeAfter.RunAfter();
+            }
+
+            base.After(methodUnderTest);
         }
     }
 }

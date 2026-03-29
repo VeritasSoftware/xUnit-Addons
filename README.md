@@ -16,13 +16,13 @@ You can re-use the attribute in multiples tests too. Just pass in a different Gu
 ```csharp
 public class MyBeforeAfterAsyncTestAttribute : BeforeAfterAsyncTestAttribute
 {
-    public MyBeforeAfterAsyncTestAttribute(Type specificAttributeType, string stamp) : base(specificAttributeType, stamp)
+    public MyBeforeAfterAsyncTestAttribute(Type specificAttributeType, string stamp, int noOfTests = 1) : base(specificAttributeType, stamp, noOfTests)
     {
     }
 
     public MyBeforeAfterAsyncTestAttribute(Type specificAttribute, Type returnFunctionClassType,
-                                                string returnFunctionName, string stamp)
-                                                : base(specificAttribute, returnFunctionClassType, returnFunctionName, stamp)
+                                                string returnFunctionName, string stamp, int noOfTests = 1)
+                                                : base(specificAttribute, returnFunctionClassType, returnFunctionName, stamp, noOfTests)
     {
     }
 }
@@ -140,7 +140,7 @@ When you want to return a value from your pre-test method, create a static metho
     {
         private static IServiceProvider? _aiAssistantServiceProvider;
 
-        [MyBeforeAfterAsyncTest(typeof(LoadAIModel), "5bb02c70-01d1-4987-8a6e-ab7fc8b1dcc4")]
+        [MyBeforeAfterAsyncTest(typeof(LoadAIModel), "5bb02c70-01d1-4987-8a6e-ab7fc8b1dcc4", 3)]
         [Theory]
         [InlineData("What are the requisites for carbon credits?", Scheme.ACCU)]
         [InlineData("How do I calculate net emissions?", Scheme.SafeguardMechanism)]
@@ -157,7 +157,7 @@ When you want to return a value from your pre-test method, create a static metho
             Assert.Equal(expectedResult, (Scheme)prediction.PredictedLabel);
         }
 
-        [MyBeforeAfterAsyncTest(typeof(SetAIModelPath), "d54e2920-ad42-4acc-a6e2-37aad8e9ac3f")]
+        [MyBeforeAfterAsyncTest(typeof(SetAIModelPath), "d54e2920-ad42-4acc-a6e2-37aad8e9ac3f", 3)]
         [Theory]
         [InlineData("What are the requisites for carbon credits?", Scheme.ACCU)]
         [InlineData("How do I calculate net emissions?", Scheme.SafeguardMechanism)]
@@ -175,7 +175,7 @@ When you want to return a value from your pre-test method, create a static metho
         }
 
         [MyBeforeAfterAsyncTest(typeof(BuildLoadPredictContainer), typeof(WebsiteAIAssistantTests),
-                                    $"{nameof(BuildLoadPredictDIContainerReturn)}", "5bb02c70-01d1-4987-8a6e-ab7fc8b1dcc4")]
+                                    $"{nameof(BuildLoadPredictDIContainerReturn)}", "5bb02c70-01d1-4987-8a6e-ab7fc8b1dcc4", 3)]
         [Theory]
         [InlineData("What are the requisites for carbon credits?", Scheme.ACCU)]
         [InlineData("How do I calculate net emissions?", Scheme.SafeguardMechanism)]
@@ -208,4 +208,4 @@ Your specific code will run **ONLY ONCE** before & after each group of Theory Te
 
 So, for example, your specific code in `LoadAIModel` will run asynchronously only once before the 3 Tests in the Theory group 
 
-and once after all 3 tests have completed..
+and once after all 3 tests have completed.
