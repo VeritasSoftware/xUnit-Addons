@@ -16,7 +16,8 @@ You can re-use the attribute in multiples tests too. Just pass in a different Gu
 ```csharp
 public class MyBeforeAfterAsyncTestAttribute : BeforeAfterAsyncTestAttribute
 {
-    public MyBeforeAfterAsyncTestAttribute(Type specificAttributeType, string stamp, int noOfTests = 1) : base(specificAttributeType, stamp, noOfTests)
+    public MyBeforeAfterAsyncTestAttribute(Type specificAttributeType, string stamp, int noOfTests = 1) 
+                                                : base(specificAttributeType, stamp, noOfTests)
     {
     }
 
@@ -134,6 +135,8 @@ Then, you can decorate those specific tests with the inherited attributes.
 Provide a Guid (as a string) as a parameter. This Guid must be unique to the test.
 
 When you want to return a value from your pre-test method, create a static method and pass the `Type` of the class (containing the method) & the method name to the constructor.
+
+Indicate the `number of tests` in the Theory group that will use the same pre-test method.
 
 ```csharp
    public class WebsiteAIAssistantTests
