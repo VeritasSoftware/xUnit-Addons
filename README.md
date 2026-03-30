@@ -127,70 +127,70 @@ When you want to return a value from your pre-test method, create a static metho
 Indicate the `number of tests` in the Theory group that will use the same pre-test method.
 
 ```csharp
-   public class WebsiteAIAssistantTests
+public class WebsiteAIAssistantTests
+{
+    private static IServiceProvider? _aiAssistantServiceProvider;
+
+    [MyBeforeAfterAsyncTest(typeof(LoadAIModel), "5bb02c70-01d1-4987-8a6e-ab7fc8b1dcc4", 3)]
+    [Theory]
+    [InlineData("What are the requisites for carbon credits?", Scheme.ACCU)]
+    [InlineData("How do I calculate net emissions?", Scheme.SafeguardMechanism)]
+    [InlineData("What is the colour of a rose?", Scheme.None)]
+    public async Task Load_Predict(string userInput, Scheme expectedResult)
     {
-        private static IServiceProvider? _aiAssistantServiceProvider;
+        var input = new ModelInput { Feature = userInput };
 
-        [MyBeforeAfterAsyncTest(typeof(LoadAIModel), "5bb02c70-01d1-4987-8a6e-ab7fc8b1dcc4", 3)]
-        [Theory]
-        [InlineData("What are the requisites for carbon credits?", Scheme.ACCU)]
-        [InlineData("How do I calculate net emissions?", Scheme.SafeguardMechanism)]
-        [InlineData("What is the colour of a rose?", Scheme.None)]
-        public async Task Load_Predict(string userInput, Scheme expectedResult)
-        {
-            var input = new ModelInput { Feature = userInput };
+        // Act
+        var prediction = await PredictionEngine.PredictAsync(input);
 
-            // Act
-            var prediction = await PredictionEngine.PredictAsync(input);
-
-            // Assert
-            Assert.NotNull(prediction);
-            Assert.Equal(expectedResult, (Scheme)prediction.PredictedLabel);
-        }
-
-        [MyBeforeAfterAsyncTest(typeof(SetAIModelPath), "d54e2920-ad42-4acc-a6e2-37aad8e9ac3f", 3)]
-        [Theory]
-        [InlineData("What are the requisites for carbon credits?", Scheme.ACCU)]
-        [InlineData("How do I calculate net emissions?", Scheme.SafeguardMechanism)]
-        [InlineData("What is the colour of a rose?", Scheme.None)]
-        public async Task AutoLoad_Predict(string userInput, Scheme expectedResult)
-        {
-            var input = new ModelInput { Feature = userInput };
-
-            // Act
-            var prediction = await PredictionEngine.PredictAsync(input);
-
-            // Assert
-            Assert.NotNull(prediction);
-            Assert.Equal(expectedResult, (Scheme)prediction.PredictedLabel);
-        }
-
-        [MyBeforeAfterAsyncTest(typeof(BuildLoadPredictContainer), typeof(WebsiteAIAssistantTests),
-                                    $"{nameof(BuildLoadPredictDIContainerReturn)}", "5bb02c70-01d1-4987-8a6e-ab7fc8b1dcc4", 3)]
-        [Theory]
-        [InlineData("What are the requisites for carbon credits?", Scheme.ACCU)]
-        [InlineData("How do I calculate net emissions?", Scheme.SafeguardMechanism)]
-        [InlineData("What is the colour of a rose?", Scheme.None)]
-        public async Task Load_Predict_Service(string userInput, Scheme expectedResult)
-        {
-            // Arrange                      
-            var aiAssistantService = _aiAssistantServiceProvider!.GetRequiredService<IWebsiteAIAssistantService>();
-
-            var input = new ModelInput { Feature = userInput };
-
-            // Act
-            var prediction = await aiAssistantService.PredictAsync(input);
-
-            // Assert
-            Assert.NotNull(prediction);
-            Assert.Equal(expectedResult, (Scheme)prediction.PredictedLabel);
-        }
-
-        private static void BuildLoadPredictDIContainerReturn(object o)
-        {
-            _aiAssistantServiceProvider = (IServiceProvider)o;
-        }
+        // Assert
+        Assert.NotNull(prediction);
+        Assert.Equal(expectedResult, (Scheme)prediction.PredictedLabel);
     }
+
+    [MyBeforeAfterAsyncTest(typeof(SetAIModelPath), "d54e2920-ad42-4acc-a6e2-37aad8e9ac3f", 3)]
+    [Theory]
+    [InlineData("What are the requisites for carbon credits?", Scheme.ACCU)]
+    [InlineData("How do I calculate net emissions?", Scheme.SafeguardMechanism)]
+    [InlineData("What is the colour of a rose?", Scheme.None)]
+    public async Task AutoLoad_Predict(string userInput, Scheme expectedResult)
+    {
+        var input = new ModelInput { Feature = userInput };
+
+        // Act
+        var prediction = await PredictionEngine.PredictAsync(input);
+
+        // Assert
+        Assert.NotNull(prediction);
+        Assert.Equal(expectedResult, (Scheme)prediction.PredictedLabel);
+    }
+
+    [MyBeforeAfterAsyncTest(typeof(BuildLoadPredictContainer), typeof(WebsiteAIAssistantTests),
+                                $"{nameof(BuildLoadPredictDIContainerReturn)}", "5bb02c70-01d1-4987-8a6e-ab7fc8b1dcc4", 3)]
+    [Theory]
+    [InlineData("What are the requisites for carbon credits?", Scheme.ACCU)]
+    [InlineData("How do I calculate net emissions?", Scheme.SafeguardMechanism)]
+    [InlineData("What is the colour of a rose?", Scheme.None)]
+    public async Task Load_Predict_Service(string userInput, Scheme expectedResult)
+    {
+        // Arrange                      
+        var aiAssistantService = _aiAssistantServiceProvider!.GetRequiredService<IWebsiteAIAssistantService>();
+
+        var input = new ModelInput { Feature = userInput };
+
+        // Act
+        var prediction = await aiAssistantService.PredictAsync(input);
+
+        // Assert
+        Assert.NotNull(prediction);
+        Assert.Equal(expectedResult, (Scheme)prediction.PredictedLabel);
+    }
+
+    private static void BuildLoadPredictDIContainerReturn(object o)
+    {
+        _aiAssistantServiceProvider = (IServiceProvider)o;
+    }
+}
 ```
 
 Run all the tests in the class.
