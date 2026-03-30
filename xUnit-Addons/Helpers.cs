@@ -2,7 +2,7 @@
 
 namespace xUnitAddons
 {
-    public static class Helpers
+    internal static class Helpers
     {
         public static T? CreateInstance<T>(Type type)
             where T : IRunAsync
