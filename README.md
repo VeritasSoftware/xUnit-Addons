@@ -46,11 +46,11 @@ public interface IRunBeforeAsyncWithReturn : IRunBeforeAsync
 
 In the interface implementation, specific to each test, put your code specific to the Test in the `RunBefore` & `RunAfter` Actions, as shown below.
 
-The code in the `RunBefore` Action will run asynchronously before the test or group of tests decorated with the custom attribute.
+The code in the `RunBefore` Action will run asynchronously before the test or group of tests decorated with the attribute.
 
-The code in the `RunAfter` Action will run asynchronously after the test or group of tests decorated with the custom attribute.
+The code in the `RunAfter` Action will run asynchronously after the test or group of tests decorated with the attribute.
 
-When you want to return a value from the pre-test method, assign the value to the `ReturnValue` property.
+When you want to return a value from the `RunBefore` pre-test method, assign the value to the `ReturnValue` property.
 
 ```csharp
 public class LoadAIModel : IRunBeforeAsync, IRunAfterAsync
@@ -201,6 +201,4 @@ Run all the tests in the class.
 
 Your specific code will run **ONLY ONCE** before & after each group of Theory Tests.
 
-So, for example, your specific code in `LoadAIModel` will run asynchronously only once before the 3 Tests in the Theory group 
-
-and once after all 3 tests have completed.
+So, for example, your specific code in `LoadAIModel` will run asynchronously only once before the 3 Tests in the Theory group and once after all 3 tests have completed.
