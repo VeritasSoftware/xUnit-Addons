@@ -168,7 +168,7 @@ public class WebsiteAIAssistantTests
     }
 
     [MyBeforeAfterAsyncTest(typeof(BuildLoadPredictContainer), typeof(WebsiteAIAssistantTests),
-                                $"{nameof(BuildLoadPredictDIContainerReturn)}", "5bb02c70-01d1-4987-8a6e-ab7fc8b1dcc4", 3)]
+                                $"{nameof(BuildLoadPredictDIContainerReturn)}", "67721fe6-cb27-4a6e-9f67-324291367706", 3)]
     [Theory]
     [InlineData("What are the requisites for carbon credits?", Scheme.ACCU)]
     [InlineData("How do I calculate net emissions?", Scheme.SafeguardMechanism)]
