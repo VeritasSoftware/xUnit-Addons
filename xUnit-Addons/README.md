@@ -9,33 +9,21 @@ To solve this problem, I have created a custom abstract xUnit attribute `BeforeA
 
 inheriting from `BeforeAfterTestAttribute`, that allows you to run asynchronous code before each test or group of tests.
 
-First, inherit from this attribute and create an attribute for each test.
+I have provided 2 constructors in the `BeforeAfterAsyncTestAttribute` to allow you to optionally return a value from the pre-test method and use it in your test.
 
-You can re-use the attribute in multiples tests too. Just pass in a different Guid in the `stamp` parameter.
+You can inherit from this attribute and create your own attribute.
 
-```csharp
-public class MyBeforeAfterAsyncTestAttribute : BeforeAfterAsyncTestAttribute
-{
-    public MyBeforeAfterAsyncTestAttribute(Type specificAttributeType, string stamp, int noOfTests = 1) 
-                                                : base(specificAttributeType, stamp, noOfTests)
-    {
-    }
+Or you can optionally, use the provided derived, sealed class `MyBeforeAfterAsyncTestAttribute` directly in your tests.
 
-    public MyBeforeAfterAsyncTestAttribute(Type specificAttribute, Type returnFunctionClassType,
-                                                string returnFunctionName, string stamp, int noOfTests = 1)
-                                                : base(specificAttribute, returnFunctionClassType, returnFunctionName, stamp, noOfTests)
-    {
-    }
-}
-```
+## Implementation
 
-There are interfaces your specific Test has to implement.
+First, there are interfaces your specific Test has to implement.
 
 If you want to run async code before the test, implement `IRunBeforeAsync`.
 
 If you want to run async code after the test, implement `IRunAfterAsync`.
 
-If you want the pre-test method `Run` to return a value implement `IRunBeforeAsyncWithReturn`.
+If you want the pre-test method `RunBefore` to return a value implement `IRunBeforeAsyncWithReturn`.
 
 ```csharp
 public interface IRunBeforeAsync : IRunAsync
@@ -130,7 +118,7 @@ public class BuildLoadPredictContainer : IRunBeforeAsyncWithReturn
 }
 ```
 
-Then, you can decorate those specific tests with the inherited attributes.
+Then, you can decorate those specific tests with your inherited attribute or the one provided out of the box.
 
 Provide a Guid (as a string) as a parameter. This Guid must be unique to the test.
 
