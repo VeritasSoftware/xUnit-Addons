@@ -1,6 +1,8 @@
 # xUnit Addons
 # Run asynchronous code specific to test, before/after test
 
+[![Build & Test](https://github.com/VeritasSoftware/xUnit-Addons/actions/workflows/dotnet.yml/badge.svg)](https://github.com/VeritasSoftware/xUnit-Addons/actions/workflows/dotnet.yml)
+
 xUnit allows you to run code before each test using the [`BeforeAfterTestAttribute`](https://api.xunit.net/v3/2.0.1/Xunit.v3.BeforeAfterTestAttribute.html).
 
 But, you cannot run `asynchronous code` using this attribute. This is needed in many situations.
