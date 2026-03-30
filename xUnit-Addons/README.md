@@ -1,5 +1,5 @@
 # xUnit Addons
-# Run asynchronous code specific to test, before/after test
+# Run asynchronous code specific to test, once before/after test
 
 [![Build & Test](https://github.com/VeritasSoftware/xUnit-Addons/actions/workflows/dotnet.yml/badge.svg)](https://github.com/VeritasSoftware/xUnit-Addons/actions/workflows/dotnet.yml)
 

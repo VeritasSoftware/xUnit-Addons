@@ -16,10 +16,6 @@ namespace xUnitAddonsTests
         [InlineData("What is the colour of a rose?", Scheme.None)]
         public async Task Load_Predict(string userInput, Scheme expectedResult)
         {
-            string modelPath = Path.Combine(Environment.CurrentDirectory, "SampleWebsite-AI-Model.zip");
-
-            await PredictionEngine.LoadModelAsync(modelPath);
-
             var input = new ModelInput { Feature = userInput };
 
             // Act
@@ -36,10 +32,6 @@ namespace xUnitAddonsTests
         {
             var userInput = "What is the colour of a rose?";
             var expectedResult = Scheme.None;
-
-            string modelPath = Path.Combine(Environment.CurrentDirectory, "SampleWebsite-AI-Model.zip");
-
-            await PredictionEngine.LoadModelAsync(modelPath);
 
             var input = new ModelInput { Feature = userInput };
 

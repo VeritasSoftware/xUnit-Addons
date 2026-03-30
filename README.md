@@ -1,5 +1,9 @@
 # xUnit Addons
-# Run asynchronous code specific to test, before/after test
+# Run asynchronous code specific to test, once before/after test
+
+|Packages|Version|Downloads|
+|---------------------------|:---:|:---:|
+|*xUnit-Addons*|[![Nuget Version](https://img.shields.io/nuget/v/xUnit-Addons)](https://www.nuget.org/packages/xUnit-Addons)|[![Downloads count](https://img.shields.io/nuget/dt/xUnit-Addons)](https://www.nuget.org/packages/xUnit-Addons)|
 
 [![Build & Test](https://github.com/VeritasSoftware/xUnit-Addons/actions/workflows/dotnet.yml/badge.svg)](https://github.com/VeritasSoftware/xUnit-Addons/actions/workflows/dotnet.yml)
 

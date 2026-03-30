@@ -7,9 +7,9 @@
 	  <Nullable>enable</Nullable>
 	  <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
 	  <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
-	  <Description>xUnit addon to run asynchronous code specific to test, before/after test.</Description>
-	  <PackageProjectUrl>https://github.com/VeritasSoftware/WebsiteAIAssistant</PackageProjectUrl>
-	  <RepositoryUrl>https://github.com/VeritasSoftware/WebsiteAIAssistant</RepositoryUrl>
+	  <Description>xUnit addon to run asynchronous code specific to test, once before/after test.</Description>
+	  <PackageProjectUrl>https://github.com/VeritasSoftware/xUnit-Addons</PackageProjectUrl>
+	  <RepositoryUrl>https://github.com/VeritasSoftware/xUnit-Addons</RepositoryUrl>
 	  <PackageTags></PackageTags>
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	  <IsPackable>true</IsPackable>
