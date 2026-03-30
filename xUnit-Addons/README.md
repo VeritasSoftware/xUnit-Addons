@@ -138,6 +138,7 @@ public class WebsiteAIAssistantTests
     [InlineData("What is the colour of a rose?", Scheme.None)]
     public async Task Load_Predict(string userInput, Scheme expectedResult)
     {
+        // Arrange
         var input = new ModelInput { Feature = userInput };
 
         // Act
@@ -155,6 +156,7 @@ public class WebsiteAIAssistantTests
     [InlineData("What is the colour of a rose?", Scheme.None)]
     public async Task AutoLoad_Predict(string userInput, Scheme expectedResult)
     {
+        // Arrange
         var input = new ModelInput { Feature = userInput };
 
         // Act
