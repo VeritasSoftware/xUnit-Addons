@@ -46,7 +46,7 @@ namespace xUnitAddonsTests.Helpers
         {
             // Arrange
             // Path to load model
-            string modelPath = Path.Combine(Environment.CurrentDirectory, "SampleWebsite-AI-Model.zip");
+            string modelPath = Path.Combine(Environment.CurrentDirectory, "SampleWebsite-AI-Model-Autoload-Predict.zip");
             // Provide the path to the AI model
             PredictionEngine.AIModelLoadFilePath = modelPath;
         };
