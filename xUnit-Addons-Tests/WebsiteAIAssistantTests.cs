@@ -16,6 +16,23 @@ namespace xUnitAddonsTests
         [InlineData("What is the colour of a rose?", Scheme.None)]
         public async Task Load_Predict(string userInput, Scheme expectedResult)
         {
+            // Arrange
+            var input = new ModelInput { Feature = userInput };
+
+            // Act
+            var prediction = await PredictionEngine.PredictAsync(input);
+
+            // Assert
+            Assert.NotNull(prediction);
+            Assert.Equal(expectedResult, (Scheme)prediction.PredictedLabel);
+        }
+
+        [MyBeforeAfterAsyncTest(typeof(LoadAIModel), "5bb02c70-01d1-4987-8a6e-ab7fc8b1dcc4", 3)]
+        [Theory]
+        [ClassData(typeof(LoadPredictTestClassData))]
+        public async Task Load_Predict_ClassData(string userInput, Scheme expectedResult)
+        {
+            // Arrange
             var input = new ModelInput { Feature = userInput };
 
             // Act
@@ -30,6 +47,7 @@ namespace xUnitAddonsTests
         [Fact]
         public async Task Load_Predict_Fail()
         {
+            // Arrange
             var userInput = "What is the colour of a rose?";
             var expectedResult = Scheme.None;
 
@@ -50,6 +68,7 @@ namespace xUnitAddonsTests
         [InlineData("What is the colour of a rose?", Scheme.None)]
         public async Task AutoLoad_Predict(string userInput, Scheme expectedResult)
         {
+            // Arrange
             var input = new ModelInput { Feature = userInput };
 
             // Act
@@ -67,6 +86,7 @@ namespace xUnitAddonsTests
         [InlineData("What is the colour of a rose?", Scheme.None)]
         public async Task Load_Predict_List(string userInput, Scheme expectedResult)
         {
+            // Arrange
             var input = new ModelInput { Feature = userInput };
 
             // Act
