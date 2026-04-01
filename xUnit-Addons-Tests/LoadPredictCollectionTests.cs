@@ -3,7 +3,7 @@ using xUnitAddons;
 
 namespace xUnitAddonsTests
 {
-    public class LoadPredictCollectionFixture : BaseCollectionFixture
+    public class LoadPredictCollectionFixture : BaseFixture
     {
         public override Action RunBefore => async () =>
         {

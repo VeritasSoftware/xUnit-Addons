@@ -10,7 +10,7 @@
 
 ## Table of Contents
 - [Run asynchronous code specific to test, once before/after test](#Feature1)
-- [Run asynchronous code once before & after a collection of tests](#Feature2)
+- [Asynchronous fixture](#Feature2)
 
 <a name="Feature1"/>
 
@@ -220,14 +220,22 @@ So, for example, your specific code in `LoadAIModel` will run asynchronously onl
 
 <a name="Feature2"/>
 
-## Run asynchronous code once before & after a collection of tests
+## Asynchronous fixture
 
-I have provided an abstract base class `BaseCollectionFixture`.
+I have provided an abstract base fixture class `BaseFixture`.
 
-You inherit from this class & put your async code in `RunBefore` & `RunAfter` methods.
+This has 2 virtual properties (`RunBefore` & `RunAfter`) that you can override in your derived fixture.
+
+Put your async code in these property methods.
+
+Then, you can use this fixture just like any xUnit fixture.
+
+Below example, shows how to use it as a collection fixture.
+
+You inherit from the base fixture & put your async code as shown below.
 
 ```csharp
-public class LoadPredictCollectionFixture : BaseCollectionFixture
+public class LoadPredictCollectionFixture : BaseFixture
 {
     public override Action RunBefore => async () =>
     {
