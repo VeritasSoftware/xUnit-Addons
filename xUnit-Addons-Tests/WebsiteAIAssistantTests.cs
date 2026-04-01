@@ -27,7 +27,7 @@ namespace xUnitAddonsTests
             Assert.Equal(expectedResult, (Scheme)prediction.PredictedLabel);
         }
 
-        [MyBeforeAfterAsyncTest(typeof(LoadAIModel), "5bb02c70-01d1-4987-8a6e-ab7fc8b1dcc4", 3)]
+        [MyBeforeAfterAsyncTest(typeof(LoadAIModel), "3fbe8d7e-eb74-489e-a532-3e33eae33488", 3)]
         [Theory]
         [ClassData(typeof(LoadPredictTestClassData))]
         public async Task Load_Predict_ClassData(string userInput, Scheme expectedResult)
