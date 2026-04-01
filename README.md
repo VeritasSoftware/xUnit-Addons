@@ -236,11 +236,11 @@ public class LoadPredictCollectionFixture : BaseCollectionFixure
 Then, just as any collection fixture, create the collection.
 
 ```csharp
-    [CollectionDefinition("Load Predict Collection")]
-    public class LoadPredictCollection : ICollectionFixture<LoadPredictCollectionFixture>
-    {
-        // This class has no code, it is just the anchor for the attributes
-    }
+[CollectionDefinition("Load Predict Collection")]
+public class LoadPredictCollection : ICollectionFixture<LoadPredictCollectionFixture>
+{
+    // This class has no code, it is just the anchor for the attributes
+}
 ```
 
 and decorate your test class. 
