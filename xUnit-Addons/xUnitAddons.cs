@@ -108,4 +108,23 @@ namespace xUnitAddons
         {
         }
     }
+
+    public abstract class BaseCollectionFixure : IDisposable
+    {
+        public BaseCollectionFixure()
+        {
+            if (RunBefore !=  null)
+                RunBefore();
+        }
+
+        public virtual Action? RunBefore { get; set; }
+
+        public virtual Action? RunAfter { get; set; }
+
+        public void Dispose()
+        {
+            if (RunAfter  != null)
+                RunAfter();
+        }
+    }
 }
