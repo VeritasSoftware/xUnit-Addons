@@ -7,22 +7,28 @@
 	  <Nullable>enable</Nullable>
 	  <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
 	  <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
-	  <Description>xUnit addon to run asynchronous code specific to test, once before/after test.</Description>
+	  <Description>xUnit addon to run asynchronous code specific to test, once before/after test or a collection of tests.</Description>
 	  <PackageProjectUrl>https://github.com/VeritasSoftware/xUnit-Addons</PackageProjectUrl>
 	  <RepositoryUrl>https://github.com/VeritasSoftware/xUnit-Addons</RepositoryUrl>
-	  <PackageTags></PackageTags>
+	  <PackageTags>xUnit addon run asynchronous/async code specific to test, once before/after test, collection of tests</PackageTags>
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	  <IsPackable>true</IsPackable>
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 	  <Authors>Shantanu</Authors>
 	  <Company>Veritas Software</Company>
-	  <Version>1.0.0</Version>
-	  <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
+	  <Version>2.0.0</Version>
+	  <PackageReleaseNotes></PackageReleaseNotes>
 	  <Title>xUnit-Addons</Title>
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
+	<Target Name="InjectPackageReleaseNotesFromFile" BeforeTargets="GenerateNuspec" Condition="Exists('CHANGELOG.md')">
+		<PropertyGroup>
+			<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(MSBuildProjectDirectory)/CHANGELOG.md"))</PackageReleaseNotes>
+		</PropertyGroup>
+	</Target>
+	
 	<ItemGroup>
 		<Content Include="README.md">
 			<PackagePath>\</PackagePath>

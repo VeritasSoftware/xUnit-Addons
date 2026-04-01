@@ -222,7 +222,7 @@ So, for example, your specific code in `LoadAIModel` will run asynchronously onl
 
 ## Run asynchronous code once before & after a collection of tests
 
-I have provided an abstract base class `BaseCollectionFixure`.
+I have provided an abstract base class `BaseCollectionFixture`.
 
 You inherit from this class & put your async code in `RunBefore` & `RunAfter` methods.
 

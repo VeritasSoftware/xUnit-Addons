@@ -1,7 +1,16 @@
 # xUnit Addons
-# Run asynchronous code specific to test, once before/after test
 
 [![Build & Test](https://github.com/VeritasSoftware/xUnit-Addons/actions/workflows/dotnet.yml/badge.svg)](https://github.com/VeritasSoftware/xUnit-Addons/actions/workflows/dotnet.yml)
+
+<a name="TOC"/>
+
+## Table of Contents
+- [Run asynchronous code specific to test, once before/after test](#Feature1)
+- [Run asynchronous code once before & after a collection of tests](#Feature2)
+
+<a name="Feature1"/>
+
+## Run asynchronous code specific to test, once before/after test
 
 xUnit allows you to run code before each test using the [`BeforeAfterTestAttribute`](https://api.xunit.net/v3/2.0.1/Xunit.v3.BeforeAfterTestAttribute.html).
 
@@ -202,3 +211,95 @@ Run all the tests in the class.
 Your specific code will run **ONLY ONCE** before & after each group of Theory Tests.
 
 So, for example, your specific code in `LoadAIModel` will run asynchronously only once before the 3 Tests in the Theory group and once after all 3 tests have completed.
+
+[Table of Contents](#TOC)
+
+<a name="Feature2"/>
+
+## Run asynchronous code once before & after a collection of tests
+
+I have provided an abstract base class `BaseCollectionFixture`.
+
+You inherit from this class & put your async code in `RunBefore` & `RunAfter` methods.
+
+```csharp
+public class LoadPredictCollectionFixture : BaseCollectionFixture
+{
+    public override Action RunBefore => async () =>
+    {
+        // Arrange
+        // Path to load model
+        string modelPath = Path.Combine(Environment.CurrentDirectory, "SampleWebsite-AI-Model.zip");
+
+        await PredictionEngine.LoadModelAsync(modelPath);
+    };
+
+    public override Action RunAfter => async () =>
+    {
+        // Clean up resources after the test, if necessary
+        await PredictionEngine.UnloadModelAsync();
+    };
+}
+```
+
+Then, just as any collection fixture, create the collection.
+
+```csharp
+[CollectionDefinition("Load Predict Collection")]
+public class LoadPredictCollection : ICollectionFixture<LoadPredictCollectionFixture>
+{
+    // This class has no code, it is just the anchor for the attributes
+}
+```
+
+and decorate your test class. 
+
+Inject the fixture in the constructor. That is all that is needed to trigger your async code.
+
+```csharp
+[Collection("Load Predict Collection")]
+public class LoadPredictCollectionTests
+{
+    private readonly LoadPredictCollectionFixture _fixture;
+
+    // The fixture is injected via the constructor
+    public LoadPredictCollectionTests(LoadPredictCollectionFixture fixture)
+    {
+        _fixture = fixture;
+    }
+
+    [Theory]
+    [InlineData("What are the requisites for carbon credits?", Scheme.ACCU)]
+    [InlineData("How do I calculate net emissions?", Scheme.SafeguardMechanism)]
+    [InlineData("What is the colour of a rose?", Scheme.None)]
+    public async Task Load_Predict(string userInput, Scheme expectedResult)
+    {
+        // Arrange
+        var input = new ModelInput { Feature = userInput };
+
+        // Act
+        var prediction = await PredictionEngine.PredictAsync(input);
+
+        // Assert
+        Assert.NotNull(prediction);
+        Assert.Equal(expectedResult, (Scheme)prediction.PredictedLabel);
+    }
+
+    [Theory]
+    [ClassData(typeof(LoadPredictTestClassData))]
+    public async Task Load_Predict_ClassData(string userInput, Scheme expectedResult)
+    {
+        // Arrange
+        var input = new ModelInput { Feature = userInput };
+
+        // Act
+        var prediction = await PredictionEngine.PredictAsync(input);
+
+        // Assert
+        Assert.NotNull(prediction);
+        Assert.Equal(expectedResult, (Scheme)prediction.PredictedLabel);
+    }
+}
+```
+
+[Table of Contents](#TOC)
