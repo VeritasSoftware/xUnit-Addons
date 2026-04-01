@@ -109,9 +109,9 @@ namespace xUnitAddons
         }
     }
 
-    public abstract class BaseCollectionFixure : IDisposable
+    public abstract class BaseCollectionFixture : IDisposable
     {
-        public BaseCollectionFixure()
+        public BaseCollectionFixture()
         {
             if (RunBefore !=  null)
                 RunBefore();

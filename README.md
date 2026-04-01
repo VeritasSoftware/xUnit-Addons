@@ -1,11 +1,20 @@
 # xUnit Addons
-# Run asynchronous code specific to test, once before/after test
 
 |Packages|Version|Downloads|
 |---------------------------|:---:|:---:|
 |*xUnit-Addons*|[![Nuget Version](https://img.shields.io/nuget/v/xUnit-Addons)](https://www.nuget.org/packages/xUnit-Addons)|[![Downloads count](https://img.shields.io/nuget/dt/xUnit-Addons)](https://www.nuget.org/packages/xUnit-Addons)|
 
 [![Build & Test](https://github.com/VeritasSoftware/xUnit-Addons/actions/workflows/dotnet.yml/badge.svg)](https://github.com/VeritasSoftware/xUnit-Addons/actions/workflows/dotnet.yml)
+
+<a name="TOC"/>
+
+## Table of Contents
+- [Run asynchronous code specific to test, once before/after test](#Feature1)
+- [Run asynchronous code once before & after a collection of tests](#Feature2)
+
+<a name="Feature1"/>
+
+## Run asynchronous code specific to test, once before/after test
 
 xUnit allows you to run code before each test using the [`BeforeAfterTestAttribute`](https://api.xunit.net/v3/2.0.1/Xunit.v3.BeforeAfterTestAttribute.html).
 
@@ -207,14 +216,18 @@ Your specific code will run **ONLY ONCE** before & after each group of Theory Te
 
 So, for example, your specific code in `LoadAIModel` will run asynchronously only once before the 3 Tests in the Theory group and once after all 3 tests have completed.
 
-# Running asynchronous code once before & after a collection of tests
+[Table of Contents](#TOC)
+
+<a name="Feature2"/>
+
+## Run asynchronous code once before & after a collection of tests
 
 I have provided an abstract base class `BaseCollectionFixure`.
 
 You inherit from this class & put your async code in `RunBefore` & `RunAfter` methods.
 
 ```csharp
-public class LoadPredictCollectionFixture : BaseCollectionFixure
+public class LoadPredictCollectionFixture : BaseCollectionFixture
 {
     public override Action RunBefore => async () =>
     {
@@ -292,3 +305,5 @@ public class LoadPredictCollectionTests
     }
 }
 ```
+
+[Table of Contents](#TOC)
