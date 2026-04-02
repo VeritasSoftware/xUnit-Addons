@@ -9,7 +9,7 @@ namespace xUnitAddonsTests
         {
             // Arrange
             // Path to load model
-            string modelPath = Path.Combine(Environment.CurrentDirectory, "SampleWebsite-AI-Model.zip");
+            string modelPath = Path.Combine(Environment.CurrentDirectory, "SampleWebsite-AI-Model-LoadPredictCollectionTests.zip");
 
             await PredictionEngine.LoadModelAsync(modelPath);
         };
