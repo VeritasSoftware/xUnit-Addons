@@ -314,4 +314,6 @@ public class LoadPredictCollectionTests
 }
 ```
 
+More demo tests are available for your to look at. [browse](/xUnit-Addons-Tests/LoadPredictServiceCollectionTests.cs)
+
 [Table of Contents](#TOC)
