@@ -14,22 +14,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="SampleWebsite-AI-Model-LoadPredictCollectionTests.zip">
+    <Content Include="Data\SampleWebsite-AI-Model-LoadPredictCollectionTests.zip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="SampleWebsite-AI-Model-LoadPredictServiceCollectionTests.zip">
+    <Content Include="Data\SampleWebsite-AI-Model-LoadPredictServiceCollectionTests.zip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="SampleWebsite-AI-Model-Autoload-Predict.zip">
+    <Content Include="Data\SampleWebsite-AI-Model-Autoload-Predict.zip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="SampleWebsite-AI-Model-Autoload-Service.zip">
+    <Content Include="Data\SampleWebsite-AI-Model-Autoload-Service.zip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="SampleWebsite-AI-Model-CreateModel-List.zip">
+    <Content Include="Data\SampleWebsite-AI-Model-CreateModel-List.zip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="SampleWebsite-AI-Model.zip">
+    <Content Include="Data\SampleWebsite-AI-Model.zip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -10,7 +10,7 @@ namespace xUnitAddonsTests.Helpers
         {
             // Arrange
             // Path to load model
-            string modelPath = Path.Combine(Environment.CurrentDirectory, "SampleWebsite-AI-Model.zip");
+            string modelPath = Path.Combine(Environment.CurrentDirectory, "Data", "SampleWebsite-AI-Model.zip");
 
             await PredictionEngine.LoadModelAsync(modelPath);
         };
@@ -28,7 +28,7 @@ namespace xUnitAddonsTests.Helpers
         {
             // Arrange
             // Path to load model
-            string modelPath = Path.Combine(Environment.CurrentDirectory, "SampleWebsite-AI-Model-CreateModel-List.zip");
+            string modelPath = Path.Combine(Environment.CurrentDirectory, "Data", "SampleWebsite-AI-Model-CreateModel-List.zip");
 
             await PredictionEngine.LoadModelAsync(modelPath);
         };
@@ -46,7 +46,7 @@ namespace xUnitAddonsTests.Helpers
         {
             // Arrange
             // Path to load model
-            string modelPath = Path.Combine(Environment.CurrentDirectory, "SampleWebsite-AI-Model-Autoload-Predict.zip");
+            string modelPath = Path.Combine(Environment.CurrentDirectory, "Data", "SampleWebsite-AI-Model-Autoload-Predict.zip");
             // Provide the path to the AI model
             PredictionEngine.AIModelLoadFilePath = modelPath;
         };
@@ -74,7 +74,7 @@ namespace xUnitAddonsTests.Helpers
             // Build DI container for AI Assistant Service
             var settings = new WebsiteAIAssistantSettings
             {
-                AIModelLoadFilePath = Path.Combine(Environment.CurrentDirectory, "SampleWebsite-AI-Model-Autoload-Service.zip"),
+                AIModelLoadFilePath = Path.Combine(Environment.CurrentDirectory, "Data", "SampleWebsite-AI-Model-Autoload-Service.zip"),
                 NegativeConfidenceThreshold = 0.70f,
                 NegativeLabel = -1f
             };

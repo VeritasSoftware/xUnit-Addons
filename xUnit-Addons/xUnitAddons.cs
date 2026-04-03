@@ -123,7 +123,7 @@ namespace xUnitAddons
 
         public void Dispose()
         {
-            if (RunAfter  != null)
+            if (RunAfter != null)
                 RunAfter();
         }
     }

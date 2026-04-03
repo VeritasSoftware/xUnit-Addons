@@ -26,7 +26,7 @@ namespace xUnitAddonsTests
             // Build DI container for AI Assistant Service
             var settings = new WebsiteAIAssistantSettings
             {
-                AIModelLoadFilePath = Path.Combine(Environment.CurrentDirectory, "SampleWebsite-AI-Model-LoadPredictServiceCollectionTests.zip"),
+                AIModelLoadFilePath = Path.Combine(Environment.CurrentDirectory, "Data", "SampleWebsite-AI-Model-LoadPredictServiceCollectionTests.zip"),
                 NegativeConfidenceThreshold = 0.70f,
                 NegativeLabel = -1f
             };
