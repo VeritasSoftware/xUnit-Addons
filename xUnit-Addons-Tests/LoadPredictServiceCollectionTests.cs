@@ -76,10 +76,8 @@ namespace xUnitAddonsTests
         }
 
         [Theory]
-        [InlineData("What are the requisites for carbon credits?", Scheme.ACCU)]
-        [InlineData("How do I calculate net emissions?", Scheme.SafeguardMechanism)]
-        [InlineData("What is the colour of a rose?", Scheme.None)]
-        public async Task AutoLoad_Predict_Service(string userInput, Scheme expectedResult)
+        [ClassData(typeof(LoadPredictTestClassData))]
+        public async Task Load_Predict_Service_ClassData(string userInput, Scheme expectedResult)
         {
             // Arrange                      
             var aiAssistantService = _aiAssistantServiceProvider!.GetRequiredService<IWebsiteAIAssistantService>();
