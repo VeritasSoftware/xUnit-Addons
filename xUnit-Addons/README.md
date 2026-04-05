@@ -2,6 +2,8 @@
 
 [![Build & Test](https://github.com/VeritasSoftware/xUnit-Addons/actions/workflows/dotnet.yml/badge.svg)](https://github.com/VeritasSoftware/xUnit-Addons/actions/workflows/dotnet.yml)
 
+xUnit addons to run async test setup code. Create safer, more reliable tests. Easy to use.
+
 <a name="TOC"/>
 
 ## Table of Contents
