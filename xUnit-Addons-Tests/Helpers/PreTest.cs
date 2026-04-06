@@ -64,6 +64,7 @@ namespace xUnitAddonsTests.Helpers
         {
             var sp = await BuildContainerAsync();
 
+            // Set the return value
             this.ReturnValue = sp;
         };
 
