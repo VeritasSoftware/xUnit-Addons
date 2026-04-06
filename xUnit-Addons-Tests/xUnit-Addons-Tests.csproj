@@ -9,6 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="LoadPredictCollectionTests.cs" />
+    <Compile Remove="LoadPredictServiceCollectionTests.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="SampleWebsite-AI-Model-CreateModel-List.zip" />
     <None Remove="SampleWebsite-AI-Model.zip" />
   </ItemGroup>
