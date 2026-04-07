@@ -24,16 +24,13 @@ namespace xUnitAddonsTests
         private void BuildContainer()
         {
             // Build DI container for AI Assistant Service
-            var settings = new WebsiteAIAssistantSettings
-            {
-                AIModelLoadFilePath = Path.Combine(Environment.CurrentDirectory, "Data", "SampleWebsite-AI-Model-LoadPredictServiceCollectionTests.zip"),
-                NegativeConfidenceThreshold = 0.70f,
-                NegativeLabel = -1f
-            };
-
             var services = new ServiceCollection();
-            services.AddSingleton(settings);
-            services.AddSingleton<IWebsiteAIAssistantService, WebsiteAIAssistantService>();
+            services.AddWebsiteAIAssistantCore(settings =>
+            {
+                settings.AIModelLoadFilePath = Path.Combine(Environment.CurrentDirectory, "Data", "SampleWebsite-AI-Model-LoadPredictServiceCollectionTests.zip");
+                settings.NegativeConfidenceThreshold = 0.70f;
+                settings.NegativeLabel = -1f;
+            });
             var sp = services.BuildServiceProvider();
 
             this.ServiceProvider = sp;

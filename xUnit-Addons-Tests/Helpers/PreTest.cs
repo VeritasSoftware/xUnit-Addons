@@ -73,16 +73,13 @@ namespace xUnitAddonsTests.Helpers
         private async Task<IServiceProvider> BuildContainerAsync()
         {
             // Build DI container for AI Assistant Service
-            var settings = new WebsiteAIAssistantSettings
-            {
-                AIModelLoadFilePath = Path.Combine(Environment.CurrentDirectory, "Data", "SampleWebsite-AI-Model-Autoload-Service.zip"),
-                NegativeConfidenceThreshold = 0.70f,
-                NegativeLabel = -1f
-            };
-
             var services = new ServiceCollection();
-            services.AddSingleton(settings);
-            services.AddSingleton<IWebsiteAIAssistantService, WebsiteAIAssistantService>();
+            services.AddWebsiteAIAssistantCore(settings =>
+            {
+                settings.AIModelLoadFilePath = Path.Combine(Environment.CurrentDirectory, "Data", "SampleWebsite-AI-Model-Autoload-Service.zip");
+                settings.NegativeConfidenceThreshold = 0.70f;
+                settings.NegativeLabel = -1f;
+            });
             var sp = services.BuildServiceProvider();
 
             return await Task.FromResult(sp);

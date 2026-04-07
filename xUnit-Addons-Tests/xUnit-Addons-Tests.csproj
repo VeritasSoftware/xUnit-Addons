@@ -9,11 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="LoadPredictCollectionTests.cs" />
-    <Compile Remove="LoadPredictServiceCollectionTests.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="SampleWebsite-AI-Model-CreateModel-List.zip" />
     <None Remove="SampleWebsite-AI-Model.zip" />
   </ItemGroup>
@@ -43,7 +38,7 @@
     <PackageReference Include="coverlet.collector" Version="6.0.4" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="11.0.0-preview.2.26159.112" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
-    <PackageReference Include="WebsiteAIAssistant" Version="2.1.0" />
+    <PackageReference Include="WebsiteAIAssistant" Version="3.0.0" />
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
   </ItemGroup>
