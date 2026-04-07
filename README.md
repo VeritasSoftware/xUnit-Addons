@@ -224,9 +224,17 @@ and **only once** after all 3 tests have completed.
 
 ## Async fixture
 
-I have provided an abstract base fixture class `BaseFixture`.
+A fixture can implement `IAsyncLifetime` to be able to run async code in the fixture.
+
+But, you need to implement both methods of the interface `InitializeAsync` & `DisposeAsync`.
+
+You may not need both methods.
+
+So, I have provided an abstract base fixture class `BaseFixture`.
 
 This has 2 virtual properties (`RunBefore` & `RunAfter`) that you can override in your derived fixture.
+
+You only override the property you need.
 
 Put your async code in these property methods.
 
