@@ -7,10 +7,10 @@
 	  <Nullable>enable</Nullable>
 	  <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
 	  <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
-	  <Description>xUnit addon to run asynchronous code specific to test, once before/after test or a collection of tests.</Description>
+	  <Description>xUnit addons to run async test setup code. Create safer, more reliable tests. Easy to use.</Description>
 	  <PackageProjectUrl>https://github.com/VeritasSoftware/xUnit-Addons</PackageProjectUrl>
 	  <RepositoryUrl>https://github.com/VeritasSoftware/xUnit-Addons</RepositoryUrl>
-	  <PackageTags>xUnit addon run asynchronous/async code specific to test, once before/after test, collection of tests</PackageTags>
+	  <PackageTags>xUnit addon run asynchronous/async code specific to test, once before/after test, collection of tests, base fixture that provides async support</PackageTags>
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	  <IsPackable>true</IsPackable>
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>

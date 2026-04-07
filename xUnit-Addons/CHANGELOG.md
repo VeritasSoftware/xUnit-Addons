@@ -1,3 +1,3 @@
 ﻿# Changelog (Release Notes)
 
-- added feature to run asynchronous code once before & after a collection of tests.
+- added feature to run async code with a fixture.

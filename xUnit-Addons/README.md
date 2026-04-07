@@ -4,13 +4,9 @@
 
 xUnit addons to run async test setup code. Create safer, more reliable tests. Easy to use.
 
-<a name="TOC"/>
-
 ## Table of Contents
-- [Run async code specific to test, only once before/after test](#Feature1)
-- [Async fixture](#Feature2)
-
-<a name="Feature1"/>
+- Run async code specific to test, only once before/after test
+- Async fixture
 
 ## Run async code specific to test, only once before/after test
 
@@ -217,10 +213,6 @@ So, for example, your specific code in `LoadAIModel` will run asynchronously **o
 
 and **only once** after all 3 tests have completed.
 
-[Table of Contents](#TOC)
-
-<a name="Feature2"/>
-
 ## Async fixture
 
 I have provided an abstract base fixture class `BaseFixture`.
@@ -314,5 +306,3 @@ public class LoadPredictCollectionTests
     }
 }
 ```
-
-[Table of Contents](#TOC)
